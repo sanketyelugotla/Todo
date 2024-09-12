@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block login %}
+<!-- buttons -->
+<a href="/facereg" class="btn btn-outline-dark">FaceLogin</a>
+<button class="btn btn-outline-dark login-btn mx-2" id="loginBtn">Login</button>
+<button class="btn btn-outline-dark signup-btn" id="signupBtn" type="submit">SignUp</button>
+
+<!-- Signup -->
+<form action="/signup" method="POST">
+  <div id="signupDialog" class="signup-dialog">
+    <h3>Login Form</h3>
+    <div class="mb-3">
+      <label for="Username" class="form-label">Username</label>
+      <input type="text" class="form-control" id="title" aria-describedby="emailHelp" name="username">
+
+    </div>
+    <div class="mb-3">
+      <label for="desc" class="form-label">Password</label>
+      <input type="password" class="form-control" id="desc" , name="password">
+    </div>
+    <button type="submit" class="btn btn-dark">Signup</button>
+    <span onclick="signup_closeDialog()" class="btn btn-dark btn-sm close">Close</span>
+  </div>
+</form>
+
+<!-- Login -->
+<form action="/login" method="POST">
+  <div id="loginDialog" class="login-dialog">
+    <h3>Login Form</h3>
+    <div class="mb-3">
+      <label for="Username" class="form-label">Username</label>
+      <input type="text" class="form-control" id="title" aria-describedby="emailHelp" name="username">
+
+    </div>
+    <div class="mb-3">
+      <label for="desc" class="form-label">Password</label>
+      <input type="password" class="form-control" id="desc" , name="password">
+    </div>
+    <button type="submit" class="btn btn-dark">Login</button>
+    <span onclick="login_closeDialog()" class="btn btn-dark btn-sm close">Close</span>
+  </div>
+</form>
+
+<!-- <div id="loginDialog" class="login-dialog">
+  <div class="login-content">
+    <span class="close" onclick="closeDialog()">&times;</span>
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+    <button class="btn btn-outline-dark">Login</button>
+  </div>
+</div> -->
+{% endblock login %}
+
+{% block body %}
+
+<div class="container my-3">
+  <form action="/" method="POST">
+    <h2>Add a Todo</h2>
+    <div class="mb-3">
+      <label for="title" class="form-label">Todo Title</label>
+      <input type="text" class="form-control" id="title" aria-describedby="emailHelp" name="title">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="desc" class="form-label">Todo Description</label>
+      <input type="text" class="form-control" id="desc" , name="desc">
+    </div>
+    <!-- <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div> -->
+    <button type="submit" class="btn btn-dark">Submit</button>
+  </form>
+</div>
+
+<div class="container my-3">
+  <h2>Your todo's</h2>
+  <div class="alert alert-dark" role="alert">
+    Please Login to View your Todo's
+    </tbody>
+  </table>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+{% endblock body %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+Face Registration
+{% endblock title %}
+
+{% block body %}
+
+<h1>Face Registration</h1>
+<div>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="captureButton">Capture Image</button>
+</div>
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureButton = document.getElementById('captureButton');
+
+    // Access the user's camera
+    async function setupCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+        } catch (err) {
+            console.error('Error accessing the camera:', err);
+        }
+    }
+
+    // Take a snapshot when the capture button is clicked
+    captureButton.addEventListener('click', () => {
+        const context = canvas.getContext('2d');
+        // Set canvas dimensions to match video feed
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        // Draw video frame onto canvas
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // Convert canvas content to base64 data URL
+        const imageDataURL = canvas.toDataURL('image/jpeg');
+        // Send data URL to server
+        sendData(imageDataURL);
+    });
+
+    // Function to send data URL to server
+    function sendData(imageDataURL) {
+        // Create a hidden form
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/facereg';
+
+        // Create hidden input for image data URL
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'pic';
+        input.value = imageDataURL;
+        form.appendChild(input);
+
+        // Create input for username (you can change this as needed)
+        const username = prompt('Enter your username:');
+        const usernameInput = document.createElement('input');
+        usernameInput.type = 'hidden';
+        usernameInput.name = 'name';
+        usernameInput.value = username;
+        form.appendChild(usernameInput);
+
+        // Append form to body and submit
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    // Call setupCamera when the page loads
+    window.onload = setupCamera;
+</script>
+
+{% endblock body %}
