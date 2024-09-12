@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/todo/app" }
+    { "source": "/(.*)", "destination": "/todo/index" }
   ]
 }
